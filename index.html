@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/e123c1a84c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        .copy-link {
+            display: inline-block;
+            position: relative;
+        }
+
+        .announce {
+            position: absolute;
+            text-align: center;
+            left: 0;
+            top: 0;
+            width: 70px;
+            height: 20px;
+            background-color: aqua;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="copy-link">
+        <input type="text" class="copy-link-input" value="Hello world">
+        <button type="button" class="copy-link-button">
+            <i class="far fa-clone"></i>
+        </button>
+        <div class="announce">Copied</div>
+    </div>
+</body>
+<script>
+    document.querySelectorAll(".copy-link").forEach(copylinkContainer => {
+        const inputField = copylinkContainer.querySelector(".copy-link-input");
+        const copyButton = copylinkContainer.querySelector(".copy-link-button");
+        const announce = copylinkContainer.querySelector(".announce");
+        const bound = copylinkContainer.getBoundingClientRect();
+        copylinkContainer.addEventListener("mousemove", (toado) => {
+            let x1 = toado.pageX - bound.left - announce.offsetWidth / 2,
+                y1 = toado.pageY + bound.top;
+            announce.style.cssText = `left:${x1}px; top:${y1}px`;
+        });
+        inputField.addEventListener("click", () => {
+            inputField.select();
+            const text = inputField.value;
+            navigator.clipboard.writeText(text);
+            announce.style.display = "unset";
+        });
+        copyButton.addEventListener("click", () => {
+            inputField.select();
+            const text = inputField.value;
+            navigator.clipboard.writeText(text);
+            announce.style.display = "unset";
+        });
+    })
+</script>
+
+</html>
